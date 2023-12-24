@@ -1,5 +1,6 @@
 import React from "react";
-import logo from "../logged-in/images/logo.png";
+import Image from "next/image";
+import logo from "@/logged-in/images/logo.png";
 import { FiSearch } from "react-icons/fi";
 import { AiFillHome } from "react-icons/ai";
 import { IoIosArrowDown } from "react-icons/io";
@@ -9,12 +10,14 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { AiOutlinePlus } from "react-icons/ai";
 import { HiOutlineMegaphone } from "react-icons/hi2";
 import { CgProfile } from "react-icons/cg";
+import { useSession } from "next-auth/react";
 
 function Header() {
+  const { data: session } = useSession();
   return (
     <div className=" mx-6 h-16 flex items-center">
       <div className="flex items-center">
-        <img src={logo} alt="Logo" className="w-[100px]" />
+        <Image src={logo} alt="Picture of the logo" width={100} height={100} />
         <div className="flex items-center cursor-pointer rounded-md p-1 ml-8 hover:border">
           <AiFillHome className="w-6 h-6" />
           <p className="ml-2">Home</p>
@@ -43,8 +46,14 @@ function Header() {
       </button>
       <div className="hover:border flex items-center w-fit p-1 ml-6">
         <CgProfile className="w-6 h-6" />
+        <Image
+          src={session?.user?.image}
+          alt="Picture of the logo"
+          width={10}
+          height={10}
+        />
         <div className="ml-2">
-          <p className="text-[13px]">oke Oluwajomiloju</p>
+          <p className="text-[13px]">{session?.user?.name}</p>
           <p className="text-[13px]">1 karma</p>
         </div>
         <IoIosArrowDown className="ml-7" />

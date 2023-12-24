@@ -1,12 +1,16 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import logo from "@/images/logo.png";
+import { signIn, useSession } from "next-auth/react";
 
 import { FiSearch } from "react-icons/fi";
 import { BsQrCodeScan } from "react-icons/bs";
 import { AiOutlineEllipsis } from "react-icons/ai";
 
 function Header() {
+  const { data: session } = useSession();
+
   return (
     <header className="mx-6 h-16 flex justify-between items-center border-b-[1px]">
       <div>
@@ -29,7 +33,10 @@ function Header() {
           <BsQrCodeScan className="pr-1 w-10" />
           Get app
         </button>
-        <button className="text-white mx-3 rounded-full py-2 px-3 font-semibold bg-login hover:bg-login_hov">
+        <button
+          onClick={() => signIn()}
+          className="text-white mx-3 rounded-full py-2 px-3 font-semibold bg-login hover:bg-login_hov"
+        >
           Log in
         </button>
 
